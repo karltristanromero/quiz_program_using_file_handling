@@ -26,7 +26,11 @@ def quiz_maker():
 
         choices = " | ".join(choices_list)
 
-        right_answer = input("Enter the correct letter of the answer: ")
+        while True:
+            right_answer = input("Enter the correct letter of the answer: ")
+
+            if right_answer.lower() in ["a", "b", "c", "d"]:
+                break
 
         questionnaire.write(f"{question} | {choices} | {right_answer} \n")
 

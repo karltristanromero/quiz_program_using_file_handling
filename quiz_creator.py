@@ -13,7 +13,10 @@
 # Main Program
 
 def quiz_maker():
-    questionnaire = open("questionnaire.txt", "a")
+
+    questionnaire_name = input("Enter the file name of the questionnaire: ")
+
+    questionnaire = open(f"{questionnaire_name}", "a")
 
     while True:
         question = input("Enter a question entry: ")

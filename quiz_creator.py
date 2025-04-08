@@ -58,6 +58,7 @@ def quiz_maker():
 
         # Ask if user still wants to create more questions or not
         if continue_or_end() == "n":
+            clear_screen()
             break
 
 

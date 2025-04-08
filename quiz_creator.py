@@ -43,7 +43,11 @@ def quiz_maker():
                 break
 
         # Write into the created/opened file and format
-        questionnaire.write(f"{question} | {choices} | {correct_ans} \n")
+        
+        if question and correct_ans and " " not in choices_list:
+            questionnaire.write(f"{question} | {choices} | {correct_ans} \n")
+        else:
+            print("Couldn't add the entry due to missing inputs. Try again.")
 
         # Ask if user still wants to create more questions or not
         if continue_or_end() == "n":

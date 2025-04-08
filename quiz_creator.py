@@ -24,10 +24,10 @@ def quiz_maker():
             choice = input(f"Enter an answer for {letter}: ")
             choices_list.append(choice)
 
-        choices = "|".join(choices_list)
+        choices = " | ".join(choices_list)
 
         right_answer = input("Enter the correct letter of the answer: ")
 
-        questionnaire.write(f"{question}|{choices}|{right_answer} \n")
+        questionnaire.write(f"{question} | {choices} | {right_answer} \n")
 
 quiz_maker()

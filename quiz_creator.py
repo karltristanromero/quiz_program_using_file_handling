@@ -48,7 +48,8 @@ def quiz_maker():
         # Validates if there are no empty strings in user input
         if question and correct_ans and len(choices_list) == 4:
             # Write into the created/opened file and format
-            questionnaire.write(f"{question} | {choices} | {correct_ans} \n")
+            entry = f"{question} | {choices} | {correct_ans}"
+            questionnaire.write(entry + "\n")
 
         else:
             print("Couldn't add the entry due to missing inputs. Try again.")

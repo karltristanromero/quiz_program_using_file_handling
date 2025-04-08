@@ -16,13 +16,15 @@ import os
 from art import text2art
 
 def quiz_maker():
+
     clear_screen()
 
+    # Create ASCII Art
     prog_name = text2art("Quiz Maker")
     print(prog_name)
 
+    # Create or open file to be appended
     questionnaire_name = input("Enter the file name of the questionnaire: ")
-
     questionnaire = open(f"{questionnaire_name}.txt", "a")
 
     while True:
@@ -31,25 +33,34 @@ def quiz_maker():
         question = input("Enter a question entry: ")
 
         choices_list = []
+
+        # Loop through letter a to d for the list of choices from user input
         for i in range(4):
             letter = chr(ord("a") + i)
+
             choice = input(f"Enter an answer for {letter}: ")
             choices_list.append(choice)
 
+        # Turn choice_list into str with the pipe delimiter for better format
         choices = " | ".join(choices_list)
 
+        # Validate if user inputs the right letter of the correct answer
         while True:
             right_answer = input("Enter the correct letter of the answer: ")
 
             if right_answer.lower() in ["a", "b", "c", "d"]:
                 break
 
+        # Write into the created/opened file and format
         questionnaire.write(f"{question} | {choices} | {right_answer} \n")
 
+        # Ask if user still wants to create more questions or not
         if continue_or_end() == "n":
             break
 
+
 def continue_or_end():
+    # Use while loop to validate that user inputs correctly
     while True:
         response = input("Do you still want to continue? (y/n): ")
         response = response.lower()

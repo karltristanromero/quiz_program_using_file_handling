@@ -31,6 +31,7 @@ def quiz_maker():
         clear_screen()
 
         question = input("Enter a question entry: ")
+        print("")
 
         choices_list = []
 
@@ -62,7 +63,7 @@ def quiz_maker():
 def continue_or_end():
     # Use while loop to validate that user inputs correctly
     while True:
-        response = input("Do you still want to continue? (y/n): ")
+        response = input("\nDo you still want to continue? (y/n): ")
         response = response.lower()
 
         if response in ["y", "n"]:

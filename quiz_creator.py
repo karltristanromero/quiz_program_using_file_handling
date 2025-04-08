@@ -12,13 +12,19 @@
 
 # Main Program
 
+import os
+
 def quiz_maker():
+
+    clear_screen()
 
     questionnaire_name = input("Enter the file name of the questionnaire: ")
 
-    questionnaire = open(f"{questionnaire_name}", "a")
+    questionnaire = open(f"{questionnaire_name}.txt", "a")
 
     while True:
+        clear_screen()
+        
         question = input("Enter a question entry: ")
 
         choices_list = []
@@ -50,7 +56,8 @@ def continue_or_end():
 
     return response
 
-        
+def clear_screen(): 
+    os.system('cls' if os.name == 'nt' else 'clear')       
             
 
 

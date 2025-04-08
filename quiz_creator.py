@@ -1,6 +1,7 @@
 # Main Program
 
 import os
+import time
 from art import text2art
 
 def quiz_maker():
@@ -46,6 +47,9 @@ def quiz_maker():
 
         # Ask if user still wants to create more questions or not
         if continue_or_end() == "n":
+            print("Exiting the program...")
+
+            time.sleep(3)
             clear_screen()
             break
 

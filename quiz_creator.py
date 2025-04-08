@@ -46,13 +46,13 @@ def quiz_maker():
 
         # Validate if user inputs the right letter of the correct answer
         while True:
-            right_answer = input("Enter the correct letter of the answer: ")
+            correct_ans = input("Enter the correct letter of the answer: ")
 
-            if right_answer.lower() in ["a", "b", "c", "d"]:
+            if correct_ans.lower() in ["a", "b", "c", "d"]:
                 break
 
         # Write into the created/opened file and format
-        questionnaire.write(f"{question} | {choices} | {right_answer} \n")
+        questionnaire.write(f"{question} | {choices} | {correct_ans} \n")
 
         # Ask if user still wants to create more questions or not
         if continue_or_end() == "n":

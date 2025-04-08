@@ -30,8 +30,9 @@ def quiz_maker():
             letter = chr(ord("a") + i)
 
             choice = input(f"Enter an answer for {letter}: ")
-            
-            if not choice.isspace():
+
+            # Add validation if the input is empty
+            if not choice.isspace() and choice != "":
                 choices_list.append(choice)
 
         # Turn choice_list into str with the pipe delimiter for better format

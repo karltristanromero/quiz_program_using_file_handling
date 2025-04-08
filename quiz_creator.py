@@ -24,4 +24,6 @@ def quiz_maker():
 
         right_answer = input("Enter the correct letter of the answer: ")
 
+        questionnaire.write(f"{question}|{possible_answer}|{right_answer}")
+
 quiz_maker()

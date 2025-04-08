@@ -30,7 +30,9 @@ def quiz_maker():
             letter = chr(ord("a") + i)
 
             choice = input(f"Enter an answer for {letter}: ")
-            choices_list.append(choice)
+            
+            if not choice.isspace():
+                choices_list.append(choice)
 
         # Turn choice_list into str with the pipe delimiter for better format
         choices = " | ".join(choices_list)
@@ -44,8 +46,9 @@ def quiz_maker():
 
         # Write into the created/opened file and format
         
-        if question and correct_ans and " " not in choices_list:
+        if question and correct_ans and not all(choices_list):
             questionnaire.write(f"{question} | {choices} | {correct_ans} \n")
+
         else:
             print("Couldn't add the entry due to missing inputs. Try again.")
 

@@ -30,4 +30,22 @@ def quiz_maker():
 
         questionnaire.write(f"{question} | {choices} | {right_answer} \n")
 
+        if continue_or_end() == "n":
+            break
+
+def continue_or_end():
+    while True:
+        response = input("Do you still want to continue? (y/n): ")
+        response = response.lower()
+
+        if response in ["y", "n"]:
+            break
+
+    return response
+
+        
+            
+
+
+
 quiz_maker()

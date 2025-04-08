@@ -13,10 +13,13 @@
 # Main Program
 
 import os
+from art import text2art
 
 def quiz_maker():
-
     clear_screen()
+
+    prog_name = text2art("Quiz Maker")
+    print(prog_name)
 
     questionnaire_name = input("Enter the file name of the questionnaire: ")
 
@@ -24,7 +27,7 @@ def quiz_maker():
 
     while True:
         clear_screen()
-        
+
         question = input("Enter a question entry: ")
 
         choices_list = []
@@ -60,6 +63,5 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')       
             
 
-
-
-quiz_maker()
+if __name__ == "__main__":
+    quiz_maker()

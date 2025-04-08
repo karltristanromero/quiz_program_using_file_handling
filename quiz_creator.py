@@ -20,10 +20,10 @@ def quiz_maker():
 
         for i in range(4):
             letter = chr(ord("a") + i)
-            possible_answer = input(f"Enter an answer for {letter}")
+            possible_answer = input(f"Enter an answer for {letter}: ")
 
         right_answer = input("Enter the correct letter of the answer: ")
 
-        questionnaire.write(f"{question}|{possible_answer}|{right_answer}")
+        questionnaire.write(f"{question}|{possible_answer}|{right_answer} \n")
 
 quiz_maker()

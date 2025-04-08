@@ -45,9 +45,9 @@ def quiz_maker():
             if correct_ans.lower() in ["a", "b", "c", "d"]:
                 break
 
-        # Write into the created/opened file and format
-        
-        if question and correct_ans and not all(choices_list):
+        # Validates if there are no empty strings in user input
+        if question and correct_ans and len(choices_list) == 4:
+            # Write into the created/opened file and format
             questionnaire.write(f"{question} | {choices} | {correct_ans} \n")
 
         else:

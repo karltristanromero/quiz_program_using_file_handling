@@ -21,8 +21,8 @@ def quiz_maker():
         choices_list = []
         for i in range(4):
             letter = chr(ord("a") + i)
-            possible_answer = input(f"Enter an answer for {letter}: ")
-            choices_list.append(possible_answer)
+            choice = input(f"Enter an answer for {letter}: ")
+            choices_list.append(choice)
 
         choices = "|".join(choices_list)
 

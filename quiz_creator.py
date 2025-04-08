@@ -18,12 +18,16 @@ def quiz_maker():
     while True:
         question = input("Enter a question entry: ")
 
+        choices_list = []
         for i in range(4):
             letter = chr(ord("a") + i)
             possible_answer = input(f"Enter an answer for {letter}: ")
+            choices_list.append(possible_answer)
+
+        choices = "|".join(choices_list)
 
         right_answer = input("Enter the correct letter of the answer: ")
 
-        questionnaire.write(f"{question}|{possible_answer}|{right_answer} \n")
+        questionnaire.write(f"{question}|{choices}|{right_answer} \n")
 
 quiz_maker()

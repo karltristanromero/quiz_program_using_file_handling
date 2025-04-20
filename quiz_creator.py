@@ -29,11 +29,15 @@ def quiz_maker():
         for i in range(4):
             letter = chr(ord("a") + i)
 
-            choice = input(f"Enter an answer for {letter}: ")
+            # Validation if the input is empty
+            while True:
 
-            # Add validation if the input is empty
-            if not choice.isspace() and choice != "":
-                choices_list.append(choice)
+                choice = input(f"Enter an answer for {letter}: ")
+                if choice.strip():
+                    choices_list.append(choice)
+                    break
+                else:
+                    print("Please input an answer")
 
         # Turn choice_list into str with the pipe delimiter for better format
         choices = " | ".join(choices_list)

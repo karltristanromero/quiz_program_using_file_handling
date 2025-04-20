@@ -35,7 +35,7 @@ def quiz_maker():
             # Validate if user inputs the right letter of the correct answer
             while True:
                 letter = "Enter the letter of the correct answer: "
-                correct_ans = prompt_validation("\n", letter)
+                correct_ans = prompt_validation(f"\n{letter}")
                 correct_ans = correct_ans.lower()
 
                 if correct_ans in ["a", "b", "c", "d"]:

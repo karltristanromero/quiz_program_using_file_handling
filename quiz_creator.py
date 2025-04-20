@@ -17,11 +17,8 @@ def quiz_maker():
             clear_screen()
             ascii_art("Creation Camp")
 
-            question = input("Enter a question entry: ").strip()
+            question = prompt_validation("Enter a question entry: ")
             print("")
-
-            if not question:
-                print("You should enter a question")
 
             choices_list = []
             # Loop through letter a to d for the list of choices from user
@@ -29,34 +26,25 @@ def quiz_maker():
                 letter = chr(ord("a") + i)
 
                 # Validation if the input is empty
-                while True:
-                    choice = input(f"Enter an answer for {letter}: ").strip()
+                choice = prompt_validation(f"Enter an answer for {letter}: ")
+                choices_list.append(choice)
 
-                    if choice:
-                        choices_list.append(choice)
-                        break
-                    else:
-                        print("Please input an answer")
 
             # Turn choice_list into str with the pipe delimiter for better format
             choices = " | ".join(choices_list)
 
             # Validate if user inputs the right letter of the correct answer
             while True:
-                correct_ans = input("\nEnter the correct letter of the answer: ")
+                letter = "Enter the letter of the correct answer: "
+                correct_ans = prompt_validation("\n", letter)
                 correct_ans = correct_ans.lower()
 
                 if correct_ans in ["a", "b", "c", "d"]:
                     break
 
-            # Validates if there are no empty strings in user input
-            if question and correct_ans and len(choices_list) == 4:
-                # Write into the created/opened file and format
-                entry = f"{question} | {choices} | {correct_ans}"
-                questionnaire.write(entry + "\n")
-
-            else:
-                print("Couldn't add the entry due to missing inputs. Try again.")
+            # Write into the created/opened file and format
+            entry = f"{question} | {choices} | {correct_ans}"
+            questionnaire.write(entry + "\n")
 
             # Ask if user still wants to create more questions or not
             if continue_or_end() == "n":

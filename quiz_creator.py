@@ -84,5 +84,12 @@ def clear_screen():
 def ascii_art(text: str):
     print(text2art(text))    
 
+def prompt_validation(prompt):
+    while True:
+        user_input = input(prompt).strip()
+        if user_input:
+            return user_input
+        print("Your input is not valid!")
+        
 if __name__ == "__main__":
     quiz_maker()

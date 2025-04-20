@@ -45,8 +45,9 @@ def quiz_maker():
         # Validate if user inputs the right letter of the correct answer
         while True:
             correct_ans = input("\nEnter the correct letter of the answer: ")
+            correct_ans = correct_ans.lower()
 
-            if correct_ans.lower() in ["a", "b", "c", "d"]:
+            if correct_ans in ["a", "b", "c", "d"]:
                 break
 
         # Validates if there are no empty strings in user input

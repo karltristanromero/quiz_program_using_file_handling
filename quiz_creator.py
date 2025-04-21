@@ -1,15 +1,21 @@
 # Main Program
 
 import os
+import time
 from art import text2art
 
 def manage_files():
+
     while True:
+        clear_screen()
+        ascii_art("Welcome!")
+
         print("""a. Create/Add QnA to a file
 b. Show contents of file
-c. Delete a specific QnA in a file""")
+c. Delete a specific QnA in a file
+d. Exit program\n""")
         
-        action = prompt_validation("What do you want to do? (a/b/c/): ")
+        action = input("What do you want to do? (a/b/c/d): ")
         action = action.lower()
 
         if action == "a":
@@ -23,8 +29,13 @@ c. Delete a specific QnA in a file""")
         elif action == "c":
             qna_deleter()
 
-        elif action == "q":
+        elif action == "d":
             break
+
+        else:
+            print("Your input is invalid!")
+            time.sleep(1.25)
+
 
 def prompt_validation(prompt):
     while True:
@@ -56,9 +67,7 @@ def prompt_correct_answer():
         correct_ans = correct_ans.lower()
 
         if correct_ans in ["a", "b", "c", "d"]:
-            break
-
-        return correct_ans
+            return correct_ans
 
 def continue_or_end():
     while True:
@@ -78,12 +87,19 @@ def ascii_art(text: str):
 
 def show_contents(ask_file):
     while True:    
+        clear_screen()
         try:
             with open(f"{ask_file}", "r") as file:
                 print(file.read())
-                break
+
+                action = input("Press any key to exit: ")
+
+                if action or action == "":
+                    break
+
         except FileNotFoundError:
-            print("File does not exist.")
+            return print("File does not exist.")
+        
             
 def quiz_maker():
 
@@ -119,7 +135,7 @@ def quiz_maker():
 def qna_deleter():
     
     clear_screen()
-    ascii_art("Quiz Maker")
+    ascii_art("QnA Deleter")
 
     questionnaire_name = prompt_validation("Enter the file name: ")
     questionnaire_name = f"{questionnaire_name}.txt"
@@ -128,6 +144,7 @@ def qna_deleter():
         file = open(questionnaire_name, "r")
         file.close()
     except FileNotFoundError:
+        clear_screen()
         print("File does not exist.")
         return
 

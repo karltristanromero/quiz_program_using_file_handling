@@ -82,7 +82,7 @@ def show_contents(ask_file):
             with open(f"{ask_file}", "r") as file:
                 print(file.read())
                 break
-        except FileExistsError:
+        except FileNotFoundError:
             print("File does not exist.")
             
 def quiz_maker():
@@ -127,8 +127,9 @@ def qna_deleter():
     try:
         file = open(questionnaire_name, "r")
         file.close()
-    except FileExistsError:
+    except FileNotFoundError:
         print("File does not exist.")
+        return
 
     ask = f"Want to check {questionnaire_name}.txt's contents first (y/n)? "
     ask = ask.lower()
@@ -143,23 +144,23 @@ def qna_deleter():
     with open(questionnaire_name, "r") as file:
         lines = file.readlines()
 
-    if 0 < int(request_index) < len(lines):
-        
-        for line in lines:
-            parts = line.split()
-            index = parts[0].strip(".")
+    updated_lines = []
+    found = False
 
-            if index == request_index:
-                del lines[request_index]
+    for line in lines:
+        parts = line.split(".")[0]
 
+        if parts.strip() == request_index.strip():
+            found = True
+        else:
+            updated_lines.append(line)
+
+    if found:
         with open(questionnaire_name, "w") as updated_file:
-            updated_file.writelines(lines)
-
-        print("The line has now been deleted.")
-
+            updated_file.writelines(updated_lines)
+            print("The line has now been deleted.")
     else:
-        print("That's an invalid line number.")
-
-
+        print("Index given does not exist.")
+    
 if __name__ == "__main__":
     manage_files()

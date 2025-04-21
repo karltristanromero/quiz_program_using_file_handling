@@ -106,10 +106,22 @@ def quiz_maker():
     clear_screen()
     ascii_art("Quiz Maker")
     questionnaire_name = prompt_validation("Enter the file name: ")
+    questionnaire_name = f"{questionnaire_name}.txt"
 
     # Create or open file to be appended
-    with open(f"{questionnaire_name}.txt", "a") as questionnaire:
-        qna_index = 1
+    with open(questionnaire_name, "a+") as questionnaire:
+        questionnaire.seek(0)
+
+        lines = questionnaire.readlines()
+
+        if not lines:
+            qna_index = 1  
+
+        else:
+            last_line = lines[-1]
+            index_part = last_line.split(".")[0]
+
+            qna_index = int(index_part) + 1
 
         while True:
             clear_screen()

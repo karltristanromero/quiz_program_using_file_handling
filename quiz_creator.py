@@ -92,7 +92,7 @@ def show_contents(ask_file):
             with open(f"{ask_file}", "r") as file:
                 print(file.read())
 
-                action = input("Press any key to exit: ")
+                action = input("Press any key to continue/exit: ")
 
                 if action or action == "":
                     break
@@ -107,6 +107,9 @@ def quiz_maker():
     ascii_art("Quiz Maker")
     questionnaire_name = prompt_validation("Enter the file name: ")
     questionnaire_name = f"{questionnaire_name}.txt"
+
+    if not os.path.exists(questionnaire_name):
+        raise FileNotFoundError
 
     # Create or open file to be appended
     with open(questionnaire_name, "a+") as questionnaire:
@@ -158,7 +161,14 @@ def qna_deleter():
     except FileNotFoundError:
         clear_screen()
         print("File does not exist.")
+        time.sleep(3)
         return
+    
+    with open(questionnaire_name, "r") as file:
+        if file.read().strip() == "":
+            print("File is empty")
+            time.sleep(3)
+            return
 
     ask = f"Want to check {questionnaire_name}.txt's contents first (y/n)? "
     ask = ask.lower()
@@ -168,28 +178,33 @@ def qna_deleter():
     if action == "y":
         show_contents(questionnaire_name)
 
-    request_index = prompt_validation("Enter number of QnA for deletion: ")
+    while True:
+        request_index = prompt_validation("Enter number of QnA for deletion: ")
 
-    with open(questionnaire_name, "r") as file:
-        lines = file.readlines()
+        with open(questionnaire_name, "r") as file:
+            lines = file.readlines()
 
-    updated_lines = []
-    found = False
+        updated_lines = []
+        found = False
 
-    for line in lines:
-        parts = line.split(".")[0]
+        for line in lines:
+            parts = line.split(".")[0]
 
-        if parts.strip() == request_index.strip():
-            found = True
+            if parts.strip() == request_index.strip():
+                found = True
+            else:
+                updated_lines.append(line)
+
+
+        if found:
+            with open(questionnaire_name, "w") as updated_file:
+                updated_file.writelines(updated_lines)
+                print("The line has now been deleted.")
+                time.sleep(3)
+                break
         else:
-            updated_lines.append(line)
+            print("Index given does not exist.")
 
-    if found:
-        with open(questionnaire_name, "w") as updated_file:
-            updated_file.writelines(updated_lines)
-            print("The line has now been deleted.")
-    else:
-        print("Index given does not exist.")
     
 if __name__ == "__main__":
     manage_files()

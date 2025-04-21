@@ -3,6 +3,29 @@
 import os
 from art import text2art
 
+def manage_files():
+    while True:
+        print("""a. Create/Add QnA to a file
+b. Show contents of file
+c. Delete a specific QnA in a file""")
+        
+        action = prompt_validation("What do you want to do? (a/b/c/): ")
+        action = action.lower()
+
+        if action == "a":
+            quiz_maker()
+
+        elif action == "b":
+            ask_file = prompt_validation("What is the name of the txt file? ")
+            ask_file = f"{ask_file}.txt"
+            show_contents(ask_file)
+
+        elif action == "c":
+            qna_deleter()
+
+        elif action == "q":
+            break
+
 def prompt_validation(prompt):
     while True:
         user_input = input(prompt).strip()
@@ -51,16 +74,26 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')       
 
 def ascii_art(text: str):
-    print(text2art(text))    
+    print(text2art(text))   
 
+def show_contents(ask_file):
+    while True:    
+        try:
+            with open(f"{ask_file}", "r") as file:
+                print(file.read())
+                break
+        except FileExistsError:
+            print("File does not exist.")
+            
 def quiz_maker():
 
     clear_screen()
     ascii_art("Quiz Maker")
-    questionnaire_name = input("Enter the file name of the questionnaire: ")
+    questionnaire_name = prompt_validation("Enter the file name: ")
 
     # Create or open file to be appended
     with open(f"{questionnaire_name}.txt", "a") as questionnaire:
+        qna_index = 1
 
         while True:
             clear_screen()
@@ -72,7 +105,7 @@ def quiz_maker():
             correct_ans = prompt_correct_answer()
 
             # Write into the created/opened file and format
-            entry = f"{question} | {choices} | {correct_ans}"
+            entry = f"{qna_index}. | {question} | {choices} | {correct_ans}"
             questionnaire.write(entry + "\n")
 
             # Ask if user still wants to create more questions or not
@@ -80,6 +113,53 @@ def quiz_maker():
                 print("Exiting the program...")
                 clear_screen()
                 break
+            
+            qna_index += 1
+
+def qna_deleter():
+    
+    clear_screen()
+    ascii_art("Quiz Maker")
+
+    questionnaire_name = prompt_validation("Enter the file name: ")
+    questionnaire_name = f"{questionnaire_name}.txt"
+
+    try:
+        file = open(questionnaire_name, "r")
+        file.close()
+    except FileExistsError:
+        print("File does not exist.")
+
+    ask = f"Want to check {questionnaire_name}.txt's contents first (y/n)? "
+    ask = ask.lower()
+
+    action = prompt_validation(ask)
+
+    if action == "y":
+        show_contents(questionnaire_name)
+
+    request_index = prompt_validation("Enter number of QnA for deletion: ")
+
+    with open(questionnaire_name, "r") as file:
+        lines = file.readlines()
+
+    if 0 < int(request_index) < len(lines):
+        
+        for line in lines:
+            parts = line.split()
+            index = parts[0].strip(".")
+
+            if index == request_index:
+                del lines[request_index]
+
+        with open(questionnaire_name, "w") as updated_file:
+            updated_file.writelines(lines)
+
+        print("The line has now been deleted.")
+
+    else:
+        print("That's an invalid line number.")
+
 
 if __name__ == "__main__":
-    quiz_maker()
+    manage_files()

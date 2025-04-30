@@ -17,14 +17,14 @@ def start_quiz(file):
 
             ask_questions(parts) 
             guess = input("Enter the letter of your answer (a/b/c/d): ")
-            point = validate_answer(guess, parts[5])
+            point = validate_answer(guess, parts[6])
             score += point
 
 def ask_questions(qna):
-    print(qna[0])
+    print(qna[1])
 
     for i in range(4):
-        print(f"{chr(97+i)}. {qna[1+i]}")
+        print(f"{chr(97+i)}. {qna[2+i]}")
 
 def validate_answer(answer, correct_answer):
     if answer == correct_answer:
@@ -32,5 +32,5 @@ def validate_answer(answer, correct_answer):
     else:
         return 0
     
-questionnaire = file_finder("science.txt")
+questionnaire = file_finder("what.txt")
 start_quiz(questionnaire)

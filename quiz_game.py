@@ -1,3 +1,5 @@
+from quiz_program import prompt_validation, continue_or_end, ascii_art
+
 def file_finder(file_name):
     import os
 
@@ -24,11 +26,18 @@ def start_quiz(file):
             parts, score = score_keeper(parts, score, point, correct_ans)
             questionnaire.append(parts)
 
-        print(f"Your score is: {score}")
+        ascii_art(f"Your score is: {score}")
+        display_answers(questionnaire)
 
-        for number, qna in enumerate(questionnaire):
-            display = f"{number+1}. {display_questions(qna)} {qna[7]}"
-            print(display)
+def display_answers(qna_list):
+    response = prompt_validation("Do you want to see the answers? (y/n): ")
+
+    if response.lower() == "y":
+        for number, qna in enumerate(qna_list):
+            display = f"{number+1}. {display_questions(qna)}{qna[7]}\n"
+            print(display)    
+    elif response == "n":
+        continue_or_end()
 
 
 def display_questions(qna):
@@ -59,8 +68,6 @@ def score_keeper(qna_list, total_score, value_pt, answer):
     return qna_list, total_score
     
 
-def display_answers():
-    pass
 
 
 

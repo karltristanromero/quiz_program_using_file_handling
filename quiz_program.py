@@ -99,7 +99,13 @@ def show_contents(ask_file):
 
         except FileNotFoundError:
             return print("File does not exist.")
-        
+
+def create_dir(current_dir, questionnaire_dir, file_name):
+    dir_path = os.path.join(current_dir, questionnaire_dir)
+    os.makedirs(dir_path, exist_ok=True)
+    
+    full_path = os.path.join(dir_path, file_name)
+    return full_path
             
 def quiz_maker():
 
@@ -108,16 +114,18 @@ def quiz_maker():
     questionnaire_name = prompt_validation("Enter the file name: ")
     questionnaire_name = f"{questionnaire_name}.txt"
 
-    directory = "questionnaire_inventory"
-    os.makedirs(directory, exist_ok=True)
-    file_path = os.path.join(directory, questionnaire_name)
+    directory = os.getcwd()
+    subdir_name = "questionnaire_inventory"
+    full_path = create_dir(directory, subdir_name, questionnaire_name)
+    print(full_path)
+
 
 # Remove. It should be separate from the file creation
     # if not os.path.exists(questionnaire_name):
     #     raise FileNotFoundError
 
     # Create or open file to be appended
-    with open(file_path, "a+") as questionnaire:
+    with open(full_path, "a+") as questionnaire:
         questionnaire.seek(0)
 
         lines = questionnaire.readlines()

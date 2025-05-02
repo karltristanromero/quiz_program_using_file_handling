@@ -5,6 +5,8 @@ import time
 from art import text2art
 
 def manage_files():
+
+    clear_screen()
     ascii_art("Welcome!")
 
     while True:
@@ -14,7 +16,7 @@ c. Show contents of file
 d. Delete a specific QnA in a file
 e. Exit program\n""")
         
-        action = input("What do you want to do? (a/b/c/d): ")
+        action = input("What do you want to do? (a/b/c/d/e): ")
         action = action.lower()
 
         if action == "a":
@@ -76,12 +78,25 @@ def prompt_correct_answer():
             return correct_ans
         
 def display_answers(qna_list):
-    response = prompt_validation("Do you want to see the answers? (y/n): ")
 
-    if response.lower() == "y":
+
+    while True:
+        response = prompt_validation("Do you want to see the answers? (y/n): ")
+        response = response.lower()
+
+        if response in ["y", "n"]:
+            break
+        else:
+            print("Your input is invalid!")
+
+    if response == "y":
+        clear_screen()
+        ascii_art("Answers\n")
+
         for number, qna in enumerate(qna_list):
             display = f"{number+1}. {display_questions(qna)}{qna[7]}\n"
             print(display)    
+            input("Press any key to continue...")
     elif response == "n":
         continue_or_end()
 
@@ -114,11 +129,13 @@ def score_keeper(qna_list, total_score, value_pt, answer):
 
 def continue_or_end():
     while True:
-        response = input("\nDo you still want to continue? (y/n): ")
+        response = prompt_validation("\nDo you want to continue? (y/n): ")
         response = response.lower()
 
         if response in ["y", "n"]:
             break
+        else:
+            print("Your input is invalid!")
         
     return response
 
@@ -132,6 +149,16 @@ def file_not_exists_warning():
     ascii_art("File does not exist.")
     time.sleep(3)
     clear_screen()
+
+def file_empty_warning(file_path):
+    with open(file_path, "r") as file:
+        content = file.read()
+        
+    if content.strip() == "":
+        clear_screen()
+        ascii_art("File is empty")
+        time.sleep(3)
+        return
 
 def rename_file(file_name):
     file_name = file_name.strip().lower()
@@ -168,10 +195,10 @@ def create_dir():
 
 def get_file():
     ask_file = prompt_validation("What is the name of the txt file? ")
-    ask_file = rename_file(ask_file)
+    file_name = rename_file(ask_file)
 
     get_dir = create_dir()
-    full_path = os.path.join(get_dir, ask_file)
+    full_path = os.path.join(get_dir, file_name)
     file_path = f"{full_path}.txt"
 
     return file_path
@@ -182,7 +209,6 @@ def quiz_maker():
     ascii_art("Quiz Maker")
 
     full_path = get_file()
-    print(full_path)
 
     with open(full_path, "a+") as questionnaire:
         questionnaire.seek(0)
@@ -240,60 +266,56 @@ def start_quiz(file):
         ascii_art(f"Your score is: {score}")
         display_answers(questionnaire)
 
+        continue_or_end()
+
 def qna_deleter():
     
     clear_screen()
     ascii_art("QnA Deleter")
 
-    questionnaire_name = prompt_validation("Enter the file name: ")
-    questionnaire_path = f"{create_dir(questionnaire_name)}.txt"
+    questionnaire_path = get_file()
+    file_empty_warning(questionnaire_path)
         
     try:
         file = open(questionnaire_path, "r")
         file.close()
     except FileNotFoundError:
+        clear_screen()
         file_not_exists_warning()
         return
     
     with open(questionnaire_path, "r") as file:
-        if file.read().strip() == "":
-            print("File is empty")
-            time.sleep(3)
-            return
+        lines = file.readlines()
 
-    ask = f"Want to check {questionnaire_name}.txt's contents first (y/n)? "
-    action = prompt_validation(ask)
-    action = action.lower()
+        ask = f"Want to check the file'sd contents first (y/n)? "
+        action = prompt_validation(ask)
+        action = action.lower()
 
-    if action == "y":
-        show_contents(questionnaire_path)
+        if action == "y":
+            show_contents(questionnaire_path)
 
-    while True:
-        request_index = prompt_validation("Enter index of QnA for deletion: ")
+        while True:
+            req_index = prompt_validation("Enter index of QnA for deletion: ")
 
-        with open(questionnaire_path, "r") as file:
-            lines = file.readlines()
+            updated_lines = []
+            found = False
 
-        updated_lines = []
-        found = False
+            for line in lines:
+                parts = line.split(".")[0]
 
-        for line in lines:
-            parts = line.split(".")[0]
+                if parts.strip() == req_index.strip():
+                    found = True
+                else:
+                    updated_lines.append(line)
 
-            if parts.strip() == request_index.strip():
-                found = True
+            if found:
+                with open(questionnaire_path, "w") as updated_file:
+                    updated_file.writelines(updated_lines)
+                    print("The line has now been deleted.")
+                    time.sleep(3)
+                    break
             else:
-                updated_lines.append(line)
-
-
-        if found:
-            with open(questionnaire_path, "w") as updated_file:
-                updated_file.writelines(updated_lines)
-                print("The line has now been deleted.")
-                time.sleep(3)
-                break
-        else:
-            print("Index given does not exist.")
+                print("Index given does not exist.")
 
 if __name__ == "__main__":
     manage_files()

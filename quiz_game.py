@@ -16,7 +16,7 @@ def start_quiz(file):
         for qna in list_of_qna:
             parts = qna.split(" | ")   
 
-            display_questions(parts)
+            print(display_questions(parts))
 
             guess = input("Enter the letter of your answer (a/b/c/d): ")
             point, correct_ans = validate_answer(guess, parts[6])
@@ -27,15 +27,18 @@ def start_quiz(file):
         print(f"Your score is: {score}")
 
         for number, qna in enumerate(questionnaire):
-            display = f" {number+1}. {display_questions(qna)} {qna[7]}"
+            display = f"{number+1}. {display_questions(qna)} {qna[7]}"
             print(display)
 
 
 def display_questions(qna):
-    print(qna[1])
+    question_str = qna[1] + "\n"
 
     for i in range(4):
-        print(f"{chr(97+i)}. {qna[2+i]}")
+        letter = chr(ord("a") + i)
+        question_str += f"{letter}) {qna[i+2]}\n"
+
+    return question_str
 
 def validate_answer(answer, correct_answer):
     correct_answer = correct_answer.split()[0]
@@ -48,9 +51,9 @@ def validate_answer(answer, correct_answer):
 def score_keeper(qna_list, total_score, value_pt, answer):
     if value_pt == 1:
         total_score += value_pt
-        qna_list.append(" | Correct✅!")
+        qna_list.append("Correct✅!")
     else:
-        answer = f" | Incorrect❌! It was {answer}!"
+        answer = f"Incorrect❌! It was {answer}!"
         qna_list.append(answer)
 
     return qna_list, total_score

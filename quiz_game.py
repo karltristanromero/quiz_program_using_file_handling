@@ -32,5 +32,5 @@ def validate_answer(answer, correct_answer):
     else:
         return 0
     
-questionnaire = file_finder("what.txt")
+questionnaire = file_finder("science.txt")
 start_quiz(questionnaire)

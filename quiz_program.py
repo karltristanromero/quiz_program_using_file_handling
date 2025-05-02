@@ -21,7 +21,7 @@ e. Exit program\n""")
             quiz_maker()
 
         elif action == "b":
-            file_path = open_file()
+            file_path = get_file()
 
             try:
                 start_quiz(file_path)
@@ -30,7 +30,7 @@ e. Exit program\n""")
                 continue
 
         elif action == "c":
-            file_path = open_file()
+            file_path = get_file()
             show_contents(file_path)
 
         elif action == "d":
@@ -133,7 +133,15 @@ def file_not_exists_warning():
     time.sleep(3)
     clear_screen()
 
+def rename_file(file_name):
+    file_name = file_name.strip().lower()
+    file_name = file_name.replace(" ", "_") 
+
+    return file_name
+
 def show_contents(ask_file):
+    ask_file = rename_file(ask_file)
+
     while True:    
         clear_screen()
         try:
@@ -149,37 +157,33 @@ def show_contents(ask_file):
             file_not_exists_warning()
             break
 
-def create_dir(file_name):
+def create_dir():
     directory = os.getcwd()
     subdir_name = "questionnaire_inventory"
 
     dir_path = os.path.join(directory, subdir_name)
     os.makedirs(dir_path, exist_ok=True)
     
-    full_path = os.path.join(dir_path, file_name)
-    return full_path
+    return dir_path
 
-def open_file():
+def get_file():
     ask_file = prompt_validation("What is the name of the txt file? ")
-    file_path = f"{create_dir(ask_file)}.txt"
+    ask_file = rename_file(ask_file)
+
+    get_dir = create_dir()
+    full_path = os.path.join(get_dir, ask_file)
+    file_path = f"{full_path}.txt"
+
     return file_path
 
 def quiz_maker():
 
     clear_screen()
     ascii_art("Quiz Maker")
-    questionnaire_name = prompt_validation("Enter the file name: ")
-    questionnaire_name = f"{questionnaire_name}.txt"
 
-    full_path = create_dir(questionnaire_name)
+    full_path = get_file()
     print(full_path)
 
-
-# Remove. It should be separate from the file creation
-    # if not os.path.exists(questionnaire_name):
-    #     raise FileNotFoundError
-
-    # Create or open file to be appended
     with open(full_path, "a+") as questionnaire:
         questionnaire.seek(0)
 

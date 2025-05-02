@@ -108,12 +108,16 @@ def quiz_maker():
     questionnaire_name = prompt_validation("Enter the file name: ")
     questionnaire_name = f"{questionnaire_name}.txt"
 
+    directory = "questionnaire_inventory"
+    os.makedirs(directory, exist_ok=True)
+    file_path = os.path.join(directory, questionnaire_name)
+
 # Remove. It should be separate from the file creation
     # if not os.path.exists(questionnaire_name):
     #     raise FileNotFoundError
 
     # Create or open file to be appended
-    with open({questionnaire_name}, "a+") as questionnaire:
+    with open(file_path, "a+") as questionnaire:
         questionnaire.seek(0)
 
         lines = questionnaire.readlines()

@@ -9,9 +9,10 @@ def manage_files():
 
     while True:
         print("""a. Create/Add QnA to a file
-b. Show contents of file
-c. Delete a specific QnA in a file
-d. Exit program\n""")
+b. Start a quiz
+c. Show contents of file
+d. Delete a specific QnA in a file
+e. Exit program\n""")
         
         action = input("What do you want to do? (a/b/c/d): ")
         action = action.lower()
@@ -20,20 +21,27 @@ d. Exit program\n""")
             quiz_maker()
 
         elif action == "b":
-            ask_file = prompt_validation("What is the name of the txt file? ")
-            file_path = f"{create_dir(ask_file)}.txt"
-            show_contents(file_path)
+            file_path = open_file()
+
+            try:
+                start_quiz(file_path)
+            except FileNotFoundError:
+                file_not_exists_warning()
+                continue
 
         elif action == "c":
-            qna_deleter()
+            file_path = open_file()
+            show_contents(file_path)
 
         elif action == "d":
+            qna_deleter()
+
+        elif action == "e":
             break
 
         else:
             print("Your input is invalid!")
             time.sleep(1.25)
-
 
 def prompt_validation(prompt):
     while True:
@@ -97,7 +105,7 @@ def validate_answer(answer, correct_answer):
 def score_keeper(qna_list, total_score, value_pt, answer):
     if value_pt == 1:
         total_score += value_pt
-        qna_list.append("Correct✅!")
+        qna_list.append(f"Correct✅! The answer is: {qna_list[6]}")
     else:
         answer = f"Incorrect❌! It was {answer}!"
         qna_list.append(answer)
@@ -144,12 +152,18 @@ def show_contents(ask_file):
 def create_dir(file_name):
     directory = os.getcwd()
     subdir_name = "questionnaire_inventory"
+
     dir_path = os.path.join(directory, subdir_name)
     os.makedirs(dir_path, exist_ok=True)
     
     full_path = os.path.join(dir_path, file_name)
     return full_path
-            
+
+def open_file():
+    ask_file = prompt_validation("What is the name of the txt file? ")
+    file_path = f"{create_dir(ask_file)}.txt"
+    return file_path
+
 def quiz_maker():
 
     clear_screen()
@@ -222,7 +236,6 @@ def start_quiz(file):
         ascii_art(f"Your score is: {score}")
         display_answers(questionnaire)
 
-
 def qna_deleter():
     
     clear_screen()
@@ -230,7 +243,7 @@ def qna_deleter():
 
     questionnaire_name = prompt_validation("Enter the file name: ")
     questionnaire_path = f"{create_dir(questionnaire_name)}.txt"
-
+        
     try:
         file = open(questionnaire_path, "r")
         file.close()
@@ -238,24 +251,23 @@ def qna_deleter():
         file_not_exists_warning()
         return
     
-    with open(questionnaire_name, "r") as file:
+    with open(questionnaire_path, "r") as file:
         if file.read().strip() == "":
             print("File is empty")
             time.sleep(3)
             return
 
     ask = f"Want to check {questionnaire_name}.txt's contents first (y/n)? "
-    ask = ask.lower()
-
     action = prompt_validation(ask)
+    action = action.lower()
 
     if action == "y":
-        show_contents(questionnaire_name)
+        show_contents(questionnaire_path)
 
     while True:
-        request_index = prompt_validation("Enter number of QnA for deletion: ")
+        request_index = prompt_validation("Enter index of QnA for deletion: ")
 
-        with open(questionnaire_name, "r") as file:
+        with open(questionnaire_path, "r") as file:
             lines = file.readlines()
 
         updated_lines = []
@@ -271,14 +283,13 @@ def qna_deleter():
 
 
         if found:
-            with open(questionnaire_name, "w") as updated_file:
+            with open(questionnaire_path, "w") as updated_file:
                 updated_file.writelines(updated_lines)
                 print("The line has now been deleted.")
                 time.sleep(3)
                 break
         else:
             print("Index given does not exist.")
-
 
 if __name__ == "__main__":
     manage_files()

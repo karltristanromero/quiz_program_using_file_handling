@@ -5,11 +5,9 @@ import time
 from art import text2art
 
 def manage_files():
+    ascii_art("Welcome!")
 
     while True:
-        clear_screen()
-        ascii_art("Welcome!")
-
         print("""a. Create/Add QnA to a file
 b. Show contents of file
 c. Delete a specific QnA in a file
@@ -23,8 +21,8 @@ d. Exit program\n""")
 
         elif action == "b":
             ask_file = prompt_validation("What is the name of the txt file? ")
-            ask_file = f"{ask_file}.txt"
-            show_contents(ask_file)
+            file_path = f"{create_dir(ask_file)}.txt"
+            show_contents(file_path)
 
         elif action == "c":
             qna_deleter()
@@ -85,6 +83,11 @@ def clear_screen():
 def ascii_art(text: str):
     print(text2art(text))   
 
+def file_not_exists_warning():
+    ascii_art("File does not exist.")
+    time.sleep(3)
+    clear_screen()
+
 def show_contents(ask_file):
     while True:    
         clear_screen()
@@ -98,10 +101,13 @@ def show_contents(ask_file):
                     break
 
         except FileNotFoundError:
-            return print("File does not exist.")
+            file_not_exists_warning()
+            break
 
-def create_dir(current_dir, questionnaire_dir, file_name):
-    dir_path = os.path.join(current_dir, questionnaire_dir)
+def create_dir(file_name):
+    directory = os.getcwd()
+    subdir_name = "questionnaire_inventory"
+    dir_path = os.path.join(directory, subdir_name)
     os.makedirs(dir_path, exist_ok=True)
     
     full_path = os.path.join(dir_path, file_name)
@@ -114,9 +120,7 @@ def quiz_maker():
     questionnaire_name = prompt_validation("Enter the file name: ")
     questionnaire_name = f"{questionnaire_name}.txt"
 
-    directory = os.getcwd()
-    subdir_name = "questionnaire_inventory"
-    full_path = create_dir(directory, subdir_name, questionnaire_name)
+    full_path = create_dir(questionnaire_name)
     print(full_path)
 
 
@@ -166,15 +170,13 @@ def qna_deleter():
     ascii_art("QnA Deleter")
 
     questionnaire_name = prompt_validation("Enter the file name: ")
-    questionnaire_name = f"{questionnaire_name}.txt"
+    questionnaire_path = f"{create_dir(questionnaire_name)}.txt"
 
     try:
-        file = open(questionnaire_name, "r")
+        file = open(questionnaire_path, "r")
         file.close()
     except FileNotFoundError:
-        clear_screen()
-        print("File does not exist.")
-        time.sleep(3)
+        file_not_exists_warning()
         return
     
     with open(questionnaire_name, "r") as file:

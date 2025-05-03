@@ -56,12 +56,13 @@ def prompt_validation(prompt, valid_choices=None):
 
         if not response:
             print("Your input is invalid!")
-        
+            continue
+
         if valid_choices:
             if response in valid_choices:
                 return response
             print(f"Input is invalid! Enter only {','.join(valid_choices)}!")
-
+        
         else:
             return response
 
@@ -86,8 +87,9 @@ def prompt_correct_answer():
     letter_choices = ["a", "b", "c", "d"]
 
     correct_ans = prompt_validation(f"\n{prompt_letter}", letter_choices)
-    correct_ans = correct_ans.lower()
 
+    return correct_ans
+    
 def display_answers(qna_list):
 
     valid_response = ["y", "n"]
@@ -258,7 +260,7 @@ def quiz_maker():
             if continue_or_end() == "n":
                 print("Exiting the program...")
                 clear_screen()
-                break
+                return
             
             qna_index += 1
 

@@ -8,7 +8,6 @@ from art import text2art
 def manage_files():
 
     clear_screen()
-    ascii_art("Welcome!")
 
     while True:
         ascii_art("Welcome!")
@@ -192,8 +191,8 @@ def show_contents(file_path):
     while True:    
         clear_screen()
         try:
-            with open(f"{file_path}", "r") as file:
-                print(file.read())
+            with open(f"{file_path}", "r") as file_qna:
+                print(file_qna.read())
 
                 action = input("Press any key to continue/exit: ")
 
@@ -266,11 +265,11 @@ def quiz_maker():
             
             qna_index += 1
 
-def start_quiz(file):
-    if file_empty_warning(file):
+def start_quiz(file_qna):
+    if file_empty_warning(file_qna):
         return True
     
-    with open(file, "r") as questionnaire:
+    with open(file_qna, "r") as questionnaire:
         list_of_qna = questionnaire.readlines()
         shuffled_list = random.sample(list_of_qna, len(list_of_qna))
 
@@ -315,8 +314,8 @@ def qna_deleter():
     if file_empty_warning(questionnaire_path):
         return
     
-    with open(questionnaire_path, "r") as file:
-        lines = file.readlines()
+    with open(questionnaire_path, "r") as file_qna:
+        lines = file_qna.readlines()
 
         ask = f"Want to check the file's contents first (y/n)? "
         action = prompt_validation(ask)

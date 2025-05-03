@@ -219,7 +219,9 @@ def get_file():
 
     get_dir = create_dir()
     full_path = os.path.join(get_dir, file_name)
-    file_path = f"{full_path}.txt"
+
+    if not full_path.endswith(".txt"):
+        file_path = f"{full_path}.txt"
 
     return file_path
 

@@ -206,10 +206,10 @@ def show_contents(file_path):
             return
 
 def create_dir():
-    directory = os.getcwd()
+    parent_dir = os.path.dirname(os.path.abspath(__file__))
     subdir_name = "questionnaire_inventory"
 
-    dir_path = os.path.join(directory, subdir_name)
+    dir_path = os.path.join(parent_dir, subdir_name)
     os.makedirs(dir_path, exist_ok=True)
     
     return dir_path

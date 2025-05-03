@@ -51,12 +51,20 @@ e. Exit program\n""")
             print("Your input is invalid!")
             time.sleep(1.25)
 
-def prompt_validation(prompt):
+def prompt_validation(prompt, valid_choices=None):
     while True:
-        user_input = input(prompt).strip()
-        if user_input:
-            return user_input
-        print("Your input is not valid!")
+        response = input(prompt).strip().lower()
+
+        if not response:
+            print("Your input is invalid!")
+        
+        if valid_choices:
+            if response in valid_choices:
+                return response
+            print(f"Input is invalid! Enter only {','.join(valid_choices)}!")
+
+        else:
+            return response
 
 def prompt_question():
     question = prompt_validation("Enter a question entry: ")
@@ -75,25 +83,17 @@ def prompt_choices():
     return choices_list
 
 def prompt_correct_answer():
-    while True:
-        letter = "Enter the letter of the correct answer: "
-        correct_ans = prompt_validation(f"\n{letter}")
-        correct_ans = correct_ans.lower()
+    prompt_letter = "Enter the letter of the correct answer: "
+    letter_choices = ["a", "b", "c", "d"]
 
-        if correct_ans in ["a", "b", "c", "d"]:
-            return correct_ans
-        
+    correct_ans = prompt_validation(f"\n{prompt_letter}", letter_choices)
+    correct_ans = correct_ans.lower()
+
 def display_answers(qna_list):
 
-
-    while True:
-        response = prompt_validation("Do you want to see the answers? (y/n): ")
-        response = response.lower()
-
-        if response in ["y", "n"]:
-            break
-        else:
-            print("Your input is invalid!")
+    valid_response = ["y", "n"]
+    prompt_check = "Do you want to see the answers? (y/n): "
+    response = prompt_validation(prompt_check, valid_response)
 
     if response == "y":
         clear_screen()
@@ -103,6 +103,8 @@ def display_answers(qna_list):
             display = f"{number+1}. {display_questions(qna)}{qna[7]}\n"
             print(display)    
             input("Press any key to continue...\n")
+        return
+
     elif response == "n":
         return
     
@@ -135,15 +137,9 @@ def score_keeper(qna_list, total_score, value_pt, answer):
     return qna_list, total_score
 
 def continue_or_end():
-    while True:
-        response = prompt_validation("\nDo you want to continue? (y/n): ")
-        response = response.lower()
-
-        if response in ["y", "n"]:
-            print("")
-            break
-        else:
-            print("Your input is invalid!")
+    valid_response = ["y", "n"]
+    prompt_check = "Do you want to continue? (y/n): "
+    response = prompt_validation(prompt_check, valid_response)
         
     return response
 
@@ -282,14 +278,10 @@ def start_quiz(file_qna):
 
             print(display_questions(parts))
 
-            while True:
-                guess = prompt_validation("Enter your answer (a/b/c/d): ")
-                guess = guess.lower()
+            prompt_guess = "Enter your answer (a/b/c/d): "
+            valid_guess = ["a", "b", "c", "d"]
 
-                if guess in ["a", "b", "c", "d"]:
-                    break
-                else:       
-                    print("Your input is invalid!\n")
+            guess = prompt_validation(prompt_guess, valid_guess)
 
             point, correct_ans = validate_answer(guess, parts[6])
 
@@ -320,18 +312,18 @@ def qna_deleter():
         lines = file_qna.readlines()
 
         ask = f"Want to check the file's contents first (y/n)? "
-        action = prompt_validation(ask)
-        action = action.lower()
+        valid_response = ["y", "n"]
+        action = prompt_validation(ask, valid_response)
 
         if action == "y":
             show_contents(questionnaire_path)
 
         while True:
             prompt = "Enter index of QnA for deletion. Type 'q' to exit: "
-            req_index = prompt_validation(prompt).strip()
+            req_index = prompt_validation(prompt)
 
             if req_index.lower() == "q":
-                print("Exiting the program...")
+                print("Going back to menu...")
                 time.sleep(3)
                 clear_screen()
                 return

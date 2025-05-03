@@ -2,6 +2,7 @@
 
 import os
 import time
+import random
 from art import text2art
 
 def manage_files():
@@ -271,10 +272,11 @@ def start_quiz(file):
     
     with open(file, "r") as questionnaire:
         list_of_qna = questionnaire.readlines()
+        shuffled_list = random.sample(list_of_qna, len(list_of_qna))
 
         score = 0
         questionnaire = []
-        for qna in list_of_qna:
+        for qna in shuffled_list:
             parts = qna.split(" | ")   
 
             print(display_questions(parts))
@@ -295,7 +297,7 @@ def start_quiz(file):
 
         clear_screen()
         ascii_art("Quiz Results")
-        print(f"Your score is: {score}")
+        print(f"Your score is: {score}/{len(shuffled_list)}\n")
         display_answers(questionnaire)
 
         if continue_or_end() == "y":

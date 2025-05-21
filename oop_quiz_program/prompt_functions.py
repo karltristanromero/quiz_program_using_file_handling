@@ -25,7 +25,7 @@ class PromptValidator:
                 if response in self.valid_response:
                     return response
                 
-                warning = f"Input is invalid! Enter only {','.join(self.valid_response)}!"
+                warning = f"Input is invalid! Enter only {'/'.join(self.valid_response)}!"
                 print(warning)
 
             else:
@@ -59,7 +59,8 @@ class ChoicesEntry(PromptValidator):
         return choices_list
 
 class CorrectAnswerEntry(PromptValidator):
-
+    ''' This is a class for prompt_correct_answer()'''
+    
     def __init__(self, prompt_letter, letter_choices):
         super().__init__(prompt_letter, letter_choices)
     
@@ -67,11 +68,44 @@ class CorrectAnswerEntry(PromptValidator):
         correct_ans = self.get_input()
         return correct_ans
 
+class AnswerValidator:
+    '''This is a code for validate_answer()'''
+    
+    def __init__(self, answer, correct_answer):
+        self.answer = answer
+        self.correct_answer = correct_answer
+
+    def validate_ans(self):
+        self.correct_answer = self.correct_answer.split()[0]
+
+        if self.answer == self.correct_answer:
+            return 1, self.correct_answer
+        else:
+            return 0, self.correct_answer
+
+class ContinueOrExit(PromptValidator):
+    '''This is a class for continue_or_exit()'''
+    
+    prompt_check = "Do you want to see the answers? (y/n): "
+    valid_response = ["y", "n"]
+
+    def __init__(self):
+        super().__init__(self.prompt_check, self.valid_response)
+
+    def continue_or_exit(self):
+        response = self.get_input()
+        return response
+
 
 # This will store all of the objects
 question_validator = QuestionEntry("Enter a question entry: ")
 choices_validator = ChoicesEntry()
 correct_answer_validator = CorrectAnswerEntry("Enter the letter of the correct answer: ", ["a", "b", "c", "d"])
+
+answer = AnswerValidator("a", "a")
+
+decision = ContinueOrExit()
+print(decision.continue_or_exit())
 
 # This will store the behavior of the object
 question = question_validator.get_question()
@@ -82,3 +116,5 @@ print(choices)
 
 correct_answer = correct_answer_validator.get_correct_answer()
 print(correct_answer)
+
+print(answer.validate_ans())

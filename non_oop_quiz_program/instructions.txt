@@ -1,0 +1,19 @@
+Hello happy Monday, I hope nakapagpahinga kayo kahit papano netong weekend.
+
+For Assignment 9: Quiz Creator
+
+Create a program that ask user for a question, it will also ask for 4 possible answer (a,b,c,d) and the correct answer. Write the collected data to a text file. Ask another question until the user chose to exit.
+
+Hint: 
+1. On the next assignment, you will create the Quiz program that read the output file of the Quiz Creator. The user will answer the randomly selected question and check if the answer is correct.
+2. Format the data written on the text file so it is easier the read on the next assignment.
+3. Use your creativity, dapat maangas.
+4. Feel free to use any library
+
+Important Note:
+1. Bawal ng mangopya. Matindi ang kaparusahan.
+2. Give descriptive caption s mga commit. Match dapat s last code changes.
+3. Kaylangan ko masundan kng paano nabuo ung program using your commits.
+4. Pag di ko masundan matic magtatanong ako. Umamin kyo kagad.
+5. Create a demo, send the link of your demo to my messenger before April 12.
+6. Upload the source code to your github account using gitbash.

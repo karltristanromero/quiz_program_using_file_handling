@@ -87,7 +87,6 @@ question_validator = QuestionEntry("Enter a question entry: ")
 choices_validator = ChoicesEntry()
 correct_answer_validator = CorrectAnswerEntry("Enter the letter of the correct answer: ", ["a", "b", "c", "d"])
 
-answer = AnswerValidator("a", "a")
 
 decision = ContinueOrExit()
 print(decision.continue_or_exit())
@@ -101,5 +100,3 @@ print(choices)
 
 correct_answer = correct_answer_validator.get_correct_answer()
 print(correct_answer)
-
-print(answer.validate_ans())

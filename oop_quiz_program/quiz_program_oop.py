@@ -1,13 +1,21 @@
 
 class PromptValidator:
+    '''This is a class for prompt_validation()'''
+
     def __init__(self, prompt, valid_response=None):
         self.prompt = prompt
         self.valid_response = valid_response
 
-    def get_input(self):
+    def get_input(self, new_prompt=None):
+
+        if new_prompt:
+            prompt = new_prompt
+        else:
+            prompt = self.prompt
+
         while True:
 
-            response = input(self.prompt).strip().lower()
+            response = input(prompt).strip().lower()
 
             if not response: 
                 print("Your input is invalid!")
@@ -16,10 +24,61 @@ class PromptValidator:
             if self.valid_response:
                 if response in self.valid_response:
                     return response
-                print(f"Input is invalid! Enter only {','.join(self.valid_response)}!")
+                
+                warning = f"Input is invalid! Enter only {','.join(self.valid_response)}!"
+                print(warning)
+
             else:
                 return response
             
-question_validator = PromptValidator("Enter a question entry: ")
-print(question_validator.get_input())
+class QuestionEntry(PromptValidator):
+    '''THis is a class for prompt_question()'''
 
+    def __init__(self, prompt):
+        super().__init__(prompt)
+
+    def get_question(self):
+        question = self.get_input()
+        return question
+
+class ChoicesEntry(PromptValidator):
+    '''This is a class for prompt_choices()'''
+
+    def __init__(self, prompt="Unused prompt"):
+        super().__init__(prompt)
+
+    def get_choices(self):
+        choices_list = []
+        for i in range(4):
+            letter = chr(ord("a") + i)
+            choice = self.get_input(f"Enter an answer for {letter}: ")
+            choices_list.append(choice)
+
+        choices_list = " | ".join(choices_list)
+        
+        return choices_list
+
+class CorrectAnswerEntry(PromptValidator):
+
+    def __init__(self, prompt_letter, letter_choices):
+        super().__init__(prompt_letter, letter_choices)
+    
+    def get_correct_answer(self):
+        correct_ans = self.get_input()
+        return correct_ans
+
+
+# This will store all of the objects
+question_validator = QuestionEntry("Enter a question entry: ")
+choices_validator = ChoicesEntry()
+correct_answer_validator = CorrectAnswerEntry("Enter the letter of the correct answer: ", ["a", "b", "c", "d"])
+
+# This will store the behavior of the object
+question = question_validator.get_question()
+print(question)
+
+choices = choices_validator.get_choices()
+print(choices)
+
+correct_answer = correct_answer_validator.get_correct_answer()
+print(correct_answer)

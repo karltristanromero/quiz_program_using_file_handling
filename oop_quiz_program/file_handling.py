@@ -31,3 +31,7 @@ class PathHandler:
             file_path = f"{full_path}.txt"
 
         return file_path
+    
+if __name__ == "__main__":
+    file_name = PathHandler()
+    print(file_name.get_file_path())

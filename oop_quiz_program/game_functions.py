@@ -1,5 +1,3 @@
-import os
-
 class AnswerValidator:
     '''This is a code for validate_answer()'''
     
@@ -36,15 +34,11 @@ class ScoreKeeper:
         return self.qna_list, self.score
 
 
-
 if __name__ == "__main__":
     # This will store the objects
     scores = ScoreKeeper([], 23, 1, "a")
 
     scores.score_counter()
-
-    file_name = PathHandler()
-    print(file_name.get_file_path())
 
     # This will sote the behavoir of the objects
     print(scores.score_counter())

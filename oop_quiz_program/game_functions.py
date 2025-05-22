@@ -1,3 +1,7 @@
+from file_handling import FileHandler
+from miscellaneous_functions import UICleaner
+from prompt_functions import ContinueOrExit
+
 class AnswerValidator:
     '''This is a code for validate_answer()'''
     
@@ -33,6 +37,33 @@ class ScoreKeeper:
 
         return self.qna_list, self.score
 
+class ShowFileContents:
+    '''This is a code for show_contents()'''
+
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    def show_contents(self):
+        if FileHandler.file_empty_warning(self.file_path):
+            return
+        
+        while True:
+            UICleaner.clear_screen()
+
+            try:
+                with open(self.file_path, "r") as file_qna:
+                    content = file_qna.read()
+                    print(content)
+
+                    action = ContinueOrExit("Press any key to continue/exit: ")
+
+                    if action or action == "":
+                        UICleaner.clear_screen()
+                        return
+            
+            except FileNotFoundError:
+                FileHandler.file_not_exists_warning()
+                return
 
 if __name__ == "__main__":
     # This will store the objects

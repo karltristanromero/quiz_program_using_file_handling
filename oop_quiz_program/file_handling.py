@@ -1,5 +1,7 @@
 import os
+import time
 from prompt_functions import FileRetriever
+from miscellaneous_functions import UICleaner
 
 class PathHandler:
     '''This is a code for create_dir(), get_file(), and rename_file()'''
@@ -32,6 +34,38 @@ class PathHandler:
 
         return file_path
     
+class FileHandler:
+
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    @staticmethod
+    def file_not_exists_warning():
+        UICleaner.clear_screen()
+        UICleaner.ascii_art("File does not exist.")
+        time.sleep(3)
+        UICleaner.clear_screen()    
+
+    def file_empty_warning(self):
+        try:   
+            with open(self.file_path, "r") as file:
+                content = file.read()
+
+            if content.strip() == "":
+                UICleaner.clear_screen()
+                UICleaner.ascii_art("File is empty")
+                time.sleep(3)
+                UICleaner.clear_screen()
+                return True
+
+        except FileNotFoundError:
+            FileHandler.file_not_exists_warning()
+            return True
+
 if __name__ == "__main__":
+
     file_name = PathHandler()
-    print(file_name.get_file_path())
+    file_path = file_name.get_file_path()
+
+    check = FileHandler(file_path)
+    check.file_empty_warning()

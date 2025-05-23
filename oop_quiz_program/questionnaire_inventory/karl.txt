@@ -1,6 +1,0 @@
-1. | what is my name | karl | tristan rom | romero | karl tristan romero | d
-1. | what is my age | 18 | 19 | 20 | 21 | a
-2. | what is | ye | no | maybe | nota | d
-3. | tw | tw | tw | tw | tw | a
-3. | tw | ka | rka | ha | v | d
-3. | tw | qp | p | a | io | a

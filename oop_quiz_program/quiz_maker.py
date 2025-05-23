@@ -2,6 +2,7 @@ from miscellaneous_functions import UICleaner
 from file_handling import PathHandler, FileHandler
 from game_functions import ShowFileContents
 import prompt_functions as prompting
+import time
 
 
 class QuizCreator(PathHandler):
@@ -81,6 +82,40 @@ class QuizModifier(PathHandler):
                 show_obj = ShowFileContents(full_path)
                 show_obj.show_contents()
 
+            while True:
+                ask = "Enter index of QnA for deletion. Type 'q' to exit: "
+                req_index = prompting.PromptValidator(ask).get_input()
+                req_index = req_index.lower()
+
+                if req_index == "q":
+                    print("Going back to menu...")
+                    time.sleep(3)
+                    UICleaner.clear_screen()
+                    return
+                
+                updated_lines = []
+                found = False
+
+                for line in lines:
+                    parts = line.split(".")[0]
+
+                    if parts.strip() == req_index.strip():
+                        found = True
+                    else:
+                        updated_lines.append(line)
+
+                if found:
+                    with open(full_path, "w") as updated_file:
+                        updated_file.writelines(updated_lines)
+                        print("The line has now been deleted.")
+                        time.sleep(3)
+                        UICleaner.clear_screen()
+                        return
+                else:
+                    print("Index given does not exist.")
+
+class QuizInitiator(PathHandler):
+    pass
 
 if __name__ == "__main__":
     quiz_del = QuizModifier()

@@ -73,7 +73,7 @@ class CorrAnsEntry(PromptValidator):
 class ContinueOrExit(PromptValidator):
     '''This is a class for continue_or_exit()'''
     
-    prompt_check = "Do you want to see the answers? (y/n): "
+    prompt_check = "Do you want to continue? (y/n): "
     valid_response = ["y", "n"]
 
     def __init__(self):

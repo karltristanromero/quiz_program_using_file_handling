@@ -5,8 +5,8 @@ from miscellaneous_functions import UICleaner
 
 class PathHandler:
     '''This is a code for create_dir(), get_file(), and rename_file()'''
-    def __init__(self):
-        self.file_name = FileRetriever("Enter a file name: ").get_file_name()
+    def __init__(self, file_name):
+        self.file_name = file_name
 
     @staticmethod
     def create_dir():

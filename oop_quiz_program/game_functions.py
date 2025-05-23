@@ -44,7 +44,9 @@ class ShowFileContents:
         self.file_path = file_path
 
     def show_contents(self):
-        if FileHandler.file_empty_warning(self.file_path):
+        txt_file = FileHandler(self.file_path)
+
+        if txt_file.file_empty_warning():
             return
         
         while True:
@@ -55,7 +57,8 @@ class ShowFileContents:
                     content = file_qna.read()
                     print(content)
 
-                    action = ContinueOrExit("Press any key to continue/exit: ")
+                    action = ContinueOrExit()
+                    action = action.continue_or_exit()
 
                     if action or action == "":
                         UICleaner.clear_screen()

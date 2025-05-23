@@ -1,6 +1,8 @@
 from miscellaneous_functions import UICleaner
 from file_handling import PathHandler, FileHandler
+from game_functions import ShowFileContents
 import prompt_functions as prompting
+
 
 class QuizCreator(PathHandler):
 
@@ -65,6 +67,20 @@ class QuizModifier(PathHandler):
 
         if file_path.file_empty_warning():
             return
+        
+        with open(full_path, "r") as file_qna:
+            lines = file_qna.readlines()
+
+            ask = f"Want to check the file's contents first (y/n)? "
+            valid_responses = ["y", "n"]
+
+            ask_action = prompting.PromptValidator(ask, valid_responses)
+            action = ask_action.get_input()
+
+            if action == "y":
+                show_obj = ShowFileContents(full_path)
+                show_obj.show_contents()
+
 
 if __name__ == "__main__":
     quiz_del = QuizModifier()

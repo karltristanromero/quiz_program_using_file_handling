@@ -1,13 +1,16 @@
 from miscellaneous_functions import UICleaner
-from file_handling import PathHandler
+from file_handling import PathHandler, FileHandler
 import prompt_functions as prompting
 
 class QuizCreator(PathHandler):
-    UICleaner.clear_screen()
-    UICleaner.ascii_art("Quiz Creator")
 
     def __init__(self):
-        super().__init__()
+        UICleaner.clear_screen()
+        UICleaner.ascii_art("Quiz Creator")
+
+        ask_file = prompting.FileRetriever("Enter file name: ").get_file_name()
+        super().__init__(file_name=ask_file)
+
 
     def write_to_file(self, questionnaire, qna_index, question, choices, ans):
         entry = f"{qna_index}. | {question} | {choices} | {ans}"
@@ -46,7 +49,23 @@ class QuizCreator(PathHandler):
                     return
                 
                 qna_index += 1
-                
+
+class QuizModifier(PathHandler):
+
+    def __init__(self):
+        UICleaner.clear_screen()
+        UICleaner.ascii_art("QnA Deleter")
+
+        ask_file = prompting.FileRetriever("Enter file name: ").get_file_name()
+        super().__init__(file_name=ask_file)
+
+    def delete_quiz(self):
+        full_path = self.get_file_path()
+        file_path = FileHandler(full_path)
+
+        if file_path.file_empty_warning():
+            return
+
 if __name__ == "__main__":
-    quiz_creator = QuizCreator()
-    quiz_creator.create_quiz()                
+    quiz_del = QuizModifier()
+    quiz_del.delete_quiz()                

@@ -10,8 +10,8 @@ class QuizCreator(PathHandler):
         super().__init__()
 
     def write_to_file(self, questionnaire, qna_index, question, choices, ans):
-            entry = f"{qna_index}. | {question} | {choices} | {ans}"
-            questionnaire.write(entry + "\n")
+        entry = f"{qna_index}. | {question} | {choices} | {ans}"
+        questionnaire.write(entry + "\n")
 
     def create_quiz(self):
         file_path = self.get_file_path()
@@ -44,6 +44,8 @@ class QuizCreator(PathHandler):
                     print("Exiting the program...")
                     UICleaner.clear_screen()
                     return
+                
+                qna_index += 1
                 
 if __name__ == "__main__":
     quiz_creator = QuizCreator()

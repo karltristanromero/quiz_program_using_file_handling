@@ -14,25 +14,26 @@ class ProgramFunctions():
         while True:
             UICleaner.ascii_art("Welcome!")
             print("""a. Create/Add QnA to a file
-                b. Start a quiz
-                c. Show contents of file
-                d. Delete a specific QnA in a file
-                e. Exit program\n""")
+b. Start a quiz
+c. Show contents of file
+d. Delete a specific QnA in a file
+e. Exit program\n""")
         
             ask = "What do you want to do? (a/b/c/d/e): "
-            choices = ["a", "b", "c", "d"]
+            choices = ["a", "b", "c", "d", "e"]
 
             action = PromptValidator(ask, choices).get_input()
 
             if action == "a":
-                quiz_functions.QuizCreator.create_quiz()
+                obj_init = quiz_functions.QuizCreator()
+                obj_init.create_quiz()
             
             elif action == "b":
                 txt_file = FileRetriever().get_file_name()
                 file_path = PathHandler(txt_file).get_file_path()
 
                 try:
-                    if not quiz_functions.QuizInitiator.start_quiz(file_path):
+                    if not quiz_functions.QuizInitiator().start_quiz():
                         print("Exiting the program...")
                         time.sleep(3)
                         UICleaner.clear_screen()
@@ -49,7 +50,11 @@ class ProgramFunctions():
                 ShowFileContents(file_path).show_contents()
 
             elif action == "d":
-                quiz_functions.QuizModifier.delete_qna()
+                quiz_functions.QuizModifier().delete_qna()
                 
             elif action == "e":
                 break
+
+
+if __name__ == "__main__":
+    ProgramFunctions.start_program()

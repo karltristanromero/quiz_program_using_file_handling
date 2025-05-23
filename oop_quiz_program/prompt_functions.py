@@ -35,7 +35,7 @@ class QuestionEntry(PromptValidator):
     '''THis is a class for prompt_question()'''
 
     def __init__(self):
-        super().__init__()
+        super().__init__(prompt=None)
 
     def get_question(self):
         question = self.get_input("Enter a question entry: ")
@@ -44,8 +44,8 @@ class QuestionEntry(PromptValidator):
 class ChoicesEntry(PromptValidator):
     '''This is a class for prompt_choices()'''
 
-    def __init__(self, prompt="Unused prompt"):
-        super().__init__(prompt)
+    def __init__(self):
+        super().__init__(prompt=None)
 
     def get_choices(self):
         choices_list = []
@@ -63,8 +63,8 @@ class CorrAnsEntry(PromptValidator):
     prompt_letter = "Enter the letter of the correct answer: "
     letter_choices = ["a", "b", "c", "d"]
 
-    def __init__(self, prompt_letter, letter_choices):
-        super().__init__(prompt_letter, letter_choices)
+    def __init__(self):
+        super().__init__(self.prompt_letter, self.letter_choices)
     
     def get_correct_answer(self):
         correct_ans = self.get_input()
@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
     question_validator = QuestionEntry("Enter a question entry: ")
     choices_validator = ChoicesEntry()
-    correct_answer_validator = CorrectAnswerEntry("Enter the letter of the correct answer: ", ["a", "b", "c", "d"])
+    correct_answer_validator = CorrAnsEntry("Enter the letter of the correct answer: ", ["a", "b", "c", "d"])
 
 
     decision = ContinueOrExit()

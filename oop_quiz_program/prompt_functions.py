@@ -34,11 +34,11 @@ class PromptValidator:
 class QuestionEntry(PromptValidator):
     '''THis is a class for prompt_question()'''
 
-    def __init__(self, prompt):
-        super().__init__(prompt)
+    def __init__(self):
+        super().__init__()
 
     def get_question(self):
-        question = self.get_input()
+        question = self.get_input("Enter a question entry: ")
         return question
 
 class ChoicesEntry(PromptValidator):
@@ -58,9 +58,11 @@ class ChoicesEntry(PromptValidator):
         
         return choices_list
 
-class CorrectAnswerEntry(PromptValidator):
+class CorrAnsEntry(PromptValidator):
     ''' This is a class for prompt_correct_answer()'''
-    
+    prompt_letter = "Enter the letter of the correct answer: "
+    letter_choices = ["a", "b", "c", "d"]
+
     def __init__(self, prompt_letter, letter_choices):
         super().__init__(prompt_letter, letter_choices)
     

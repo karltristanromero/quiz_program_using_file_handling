@@ -1,8 +1,9 @@
 from miscellaneous_functions import UICleaner
 from file_handling import PathHandler, FileHandler
-from game_functions import ShowFileContents
+from game_functions import ShowFileContents, DisplayQnA, AnswerValidator, ScoreKeeper, DisplayAnswers
 import prompt_functions as prompting
 import time
+import random
 
 
 class QuizCreator(PathHandler):
@@ -62,7 +63,7 @@ class QuizModifier(PathHandler):
         ask_file = prompting.FileRetriever("Enter file name: ").get_file_name()
         super().__init__(file_name=ask_file)
 
-    def delete_quiz(self):
+    def delete_qna(self):
         full_path = self.get_file_path()
         file_path = FileHandler(full_path)
 
@@ -115,8 +116,58 @@ class QuizModifier(PathHandler):
                     print("Index given does not exist.")
 
 class QuizInitiator(PathHandler):
-    pass
+    
+    def __init__(self):
+        UICleaner.clear_screen()
+        UICleaner.ascii_art("Quiz Camp")
+
+        ask_file = prompting.FileRetriever("Enter file name: ").get_file_name()
+        super().__init__(file_name=ask_file)
+    
+    def start_quiz(self):
+        full_path = self.get_file_path()
+        file_path = FileHandler(full_path)
+
+        if file_path.file_empty_warning():
+            return True
+        
+        with open(full_path, "r") as questionnaire:
+            list_of_qna = questionnaire.readlines()
+            shuffled_list = random.sample(list_of_qna, len(list_of_qna))
+
+            score = 0
+            questionnaire_list = []
+            for qna in shuffled_list:
+                parts = qna.split(" | ")
+
+                print(DisplayQnA(parts).display_questions())
+
+                prompt_guess = "Enter your answer (a/b/c/d): "
+                valid_guess = ["a", "b", "c", "d"]
+
+                guess = prompting.PromptValidator(prompt_guess, valid_guess)
+                guess = guess.get_input()
+
+                point, corr_ans = AnswerValidator(guess, parts[6]).valid_ans()
+
+                parts, score = ScoreKeeper(parts, score, point, corr_ans).score_counter()
+
+                questionnaire_list.append(parts)
+
+            UICleaner.clear_screen()
+            UICleaner.ascii_art("Quiz Results")
+            print(f"Your score is: {score}/{len(shuffled_list)}\n")
+            DisplayAnswers(questionnaire_list).display_ans()
+
+            response = prompting.ContinueOrExit().continue_or_exit()
+
+            if response == "y":
+                UICleaner.clear_screen()
+                return True
+            else:
+                return False
+
 
 if __name__ == "__main__":
-    quiz_del = QuizModifier()
-    quiz_del.delete_quiz()                
+    quiz_del = QuizInitiator()
+    quiz_del.start_quiz()                

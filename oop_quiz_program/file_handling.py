@@ -1,6 +1,5 @@
 import os
 import time
-from prompt_functions import FileRetriever
 from miscellaneous_functions import UICleaner
 
 class PathHandler:

@@ -12,7 +12,7 @@ class QuizCreator(PathHandler):
         UICleaner.clear_screen()
         UICleaner.ascii_art("Quiz Creator")
 
-        ask_file = prompting.FileRetriever("Enter file name: ").get_file_name()
+        ask_file = prompting.FileRetriever().get_file_name()
         super().__init__(file_name=ask_file)
 
 
@@ -60,7 +60,7 @@ class QuizModifier(PathHandler):
         UICleaner.clear_screen()
         UICleaner.ascii_art("QnA Deleter")
 
-        ask_file = prompting.FileRetriever("Enter file name: ").get_file_name()
+        ask_file = prompting.FileRetriever().get_file_name()
         super().__init__(file_name=ask_file)
 
     def delete_qna(self):
@@ -121,7 +121,7 @@ class QuizInitiator(PathHandler):
         UICleaner.clear_screen()
         UICleaner.ascii_art("Quiz Camp")
 
-        ask_file = prompting.FileRetriever("Enter file name: ").get_file_name()
+        ask_file = prompting.FileRetriever().get_file_name()
         super().__init__(file_name=ask_file)
     
     def start_quiz(self):
@@ -166,8 +166,3 @@ class QuizInitiator(PathHandler):
                 return True
             else:
                 return False
-
-
-if __name__ == "__main__":
-    quiz_del = QuizInitiator()
-    quiz_del.start_quiz()                

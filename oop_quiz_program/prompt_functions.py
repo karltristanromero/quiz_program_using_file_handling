@@ -85,8 +85,9 @@ class ContinueOrExit(PromptValidator):
     
 class FileRetriever(PromptValidator):
 
-    def __init__(self, prompt):
-        super().__init__(prompt)
+    def __init__(self):
+        ask = "Enter the file name: "
+        super().__init__(prompt=ask)
 
     def get_file_name(self):
         return self.get_input() 

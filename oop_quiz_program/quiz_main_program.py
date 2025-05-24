@@ -2,7 +2,8 @@ import time
 import quiz_functions
 from prompt_functions import PromptValidator, FileRetriever
 from miscellaneous_functions import UICleaner
-from file_handling import PathHandler, FileHandler
+from file_handling import FileHandler
+from path_handling import PathHandler
 from game_functions import ShowFileContents
 
 class ProgramFunctions():

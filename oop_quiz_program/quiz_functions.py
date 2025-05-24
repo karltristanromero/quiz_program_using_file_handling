@@ -1,9 +1,11 @@
-from miscellaneous_functions import UICleaner
-from file_handling import PathHandler, FileHandler
-from game_functions import ShowFileContents, DisplayQnA, AnswerValidator, ScoreKeeper, DisplayAnswers
 import prompt_functions as prompting
 import time
 import random
+from path_handling import PathHandler
+from miscellaneous_functions import UICleaner
+from file_handling import FileHandler
+from game_functions import ShowFileContents, DisplayQnA, AnswerValidator, ScoreKeeper, DisplayAnswers
+
 
 
 class QuizCreator(PathHandler):

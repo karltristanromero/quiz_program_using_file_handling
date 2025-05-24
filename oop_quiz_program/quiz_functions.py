@@ -4,7 +4,8 @@ import random
 from path_handling import PathHandler
 from miscellaneous_functions import UICleaner
 from file_handling import FileHandler
-from game_functions import ShowFileContents, DisplayQnA, AnswerValidator, ScoreKeeper, DisplayAnswers
+from score_count_function import ScoreKeeper
+from game_functions import ShowFileContents, DisplayQnA, AnswerValidator, DisplayAnswers
 
 
 

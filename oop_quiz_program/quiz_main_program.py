@@ -4,7 +4,7 @@ from prompt_functions import PromptValidator, FileRetriever
 from miscellaneous_functions import UICleaner
 from file_handling import FileHandler
 from path_handling import PathHandler
-from game_functions import ShowFileContents
+from read_file_function import ShowFileContents
 
 class ProgramFunctions():
 

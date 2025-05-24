@@ -5,7 +5,8 @@ from path_handling import PathHandler
 from miscellaneous_functions import UICleaner
 from file_handling import FileHandler
 from score_count_function import ScoreKeeper
-from game_functions import ShowFileContents, DisplayQnA, AnswerValidator, DisplayAnswers
+from read_file_function import ShowFileContents
+from game_functions import DisplayQnA, AnswerValidator, DisplayAnswers
 
 
 

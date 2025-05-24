@@ -1,5 +1,4 @@
 import os
-import time
 from art import text2art
 
 class UICleaner:

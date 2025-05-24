@@ -91,24 +91,3 @@ class FileRetriever(PromptValidator):
 
     def get_file_name(self):
         return self.get_input() 
-
-if __name__ == "__main__":
-    # This will store all of the objects
-
-    question_validator = QuestionEntry("Enter a question entry: ")
-    choices_validator = ChoicesEntry()
-    correct_answer_validator = CorrAnsEntry("Enter the letter of the correct answer: ", ["a", "b", "c", "d"])
-
-
-    decision = ContinueOrExit()
-    print(decision.continue_or_exit())
-
-    # This will store the behavior of the object
-    question = question_validator.get_question()
-    print(question)
-
-    choices = choices_validator.get_choices()
-    print(choices)
-
-    correct_answer = correct_answer_validator.get_correct_answer()
-    print(correct_answer)

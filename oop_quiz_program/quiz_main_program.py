@@ -1,5 +1,5 @@
 import time
-import quiz_functions
+from qna_delete_functon import QuizModifier
 from prompt_functions import PromptValidator, FileRetriever
 from miscellaneous_functions import UICleaner
 from file_handling import FileHandler
@@ -51,7 +51,7 @@ e. Exit program\n""")
                 ShowFileContents(file_path).show_contents()
 
             elif action == "d":
-                quiz_functions.QuizModifier().delete_qna()
+                QuizModifier().delete_qna()
                 
             elif action == "e":
                 break

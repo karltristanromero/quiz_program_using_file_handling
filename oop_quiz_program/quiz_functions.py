@@ -6,9 +6,8 @@ from miscellaneous_functions import UICleaner
 from file_handling import FileHandler
 from score_count_function import ScoreKeeper
 from read_file_function import ShowFileContents
+from display_qna_functions import DisplayQnA
 from game_functions import DisplayQnA, AnswerValidator, DisplayAnswers
-
-
 
 class QuizCreator(PathHandler):
 

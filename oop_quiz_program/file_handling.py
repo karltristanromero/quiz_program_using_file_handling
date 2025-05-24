@@ -28,11 +28,3 @@ class FileHandler:
         except FileNotFoundError:
             FileHandler.file_not_exists_warning()
             return True
-
-if __name__ == "__main__":
-
-    file_name = PathHandler()
-    file_path = file_name.get_file_path()
-
-    check = FileHandler(file_path)
-    check.file_empty_warning()

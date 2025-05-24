@@ -1,5 +1,6 @@
 from miscellaneous_functions import UICleaner
 from file_handling import FileHandler
+from prompt_functions import ContinueOrExit
 
 class ShowFileContents:
     '''This is a code for show_contents()'''

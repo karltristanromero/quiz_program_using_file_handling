@@ -1,6 +1,6 @@
 from utils.miscellaneous_functions import UICleaner
 from utils.file_handling import FileHandler
-from prompt_functions import ContinueOrExit
+from game_functions.prompt_functions import ContinueOrExit
 
 class ShowFileContents:
     '''This is a code for show_contents()'''

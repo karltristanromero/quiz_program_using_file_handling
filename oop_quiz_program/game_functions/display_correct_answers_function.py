@@ -1,6 +1,6 @@
 from utils.miscellaneous_functions import UICleaner
-from prompt_functions import PromptValidator
-from display_qna_functions import DisplayQnA
+from game_functions.prompt_functions import PromptValidator
+from game_functions.display_qna_functions import DisplayQnA
 
 class DisplayAnswers():
     

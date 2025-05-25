@@ -1,12 +1,12 @@
 import time
-from qna_create_function import QuizCreator
-from qna_start_function import QuizInitiator
-from qna_delete_function import QuizModifier
-from prompt_functions import PromptValidator, FileRetriever
-from miscellaneous_functions import UICleaner
-from file_handling import FileHandler
-from path_handling import PathHandler
-from read_file_function import ShowFileContents
+from main_functions.qna_create_function import QuizCreator
+from main_functions.qna_start_function import QuizInitiator
+from main_functions.qna_delete_function import QuizModifier
+from game_functions.prompt_functions import PromptValidator, FileRetriever
+from utils.miscellaneous_functions import UICleaner
+from utils.file_handling import FileHandler
+from utils.path_handling import PathHandler
+from game_functions.read_file_function import ShowFileContents
 
 class ProgramFunctions:
 

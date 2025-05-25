@@ -1,12 +1,13 @@
 import time
 from qna_delete_functon import QuizModifier
+from qna_start_functions import QuizInitiator
 from prompt_functions import PromptValidator, FileRetriever
 from miscellaneous_functions import UICleaner
 from file_handling import FileHandler
 from path_handling import PathHandler
 from read_file_function import ShowFileContents
 
-class ProgramFunctions():
+class ProgramFunctions:
 
     @staticmethod
     def start_program():
@@ -26,7 +27,7 @@ e. Exit program\n""")
             action = PromptValidator(ask, choices).get_input()
 
             if action == "a":
-                obj_init = quiz_functions.QuizCreator()
+                obj_init = QuizCreator()
                 obj_init.create_quiz()
             
             elif action == "b":
@@ -34,7 +35,7 @@ e. Exit program\n""")
                 file_path = PathHandler(txt_file).get_file_path()
 
                 try:
-                    if not quiz_functions.QuizInitiator().start_quiz():
+                    if not QuizInitiator().start_quiz():
                         print("Exiting the program...")
                         time.sleep(3)
                         UICleaner.clear_screen()

@@ -1,6 +1,7 @@
 import time
-from oop_quiz_program.qna_delete_function import QuizModifier
-from oop_quiz_program.qna_start_function import QuizInitiator
+from qna_create_function import QuizCreator
+from qna_start_function import QuizInitiator
+from qna_delete_function import QuizModifier
 from prompt_functions import PromptValidator, FileRetriever
 from miscellaneous_functions import UICleaner
 from file_handling import FileHandler

@@ -48,3 +48,6 @@ class QuizCreator(PathHandler):
                     return
                 
                 qna_index += 1
+
+obj = QuizCreator()
+obj.create_quiz()

@@ -7,10 +7,10 @@ class PathHandler:
 
     @staticmethod
     def create_dir():
-        parent_dir = os.path.dirname(os.path.abspath(__file__))
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         subdir_name = "questionnaire_inventory"
 
-        dir_path = os.path.join(parent_dir, subdir_name)
+        dir_path = os.path.join(root, subdir_name)
         os.makedirs(dir_path, exist_ok=True)
         
         return dir_path

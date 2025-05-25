@@ -1,5 +1,5 @@
 import time
-from miscellaneous_functions import UICleaner
+from utils.miscellaneous_functions import UICleaner
 
 class FileHandler:
 

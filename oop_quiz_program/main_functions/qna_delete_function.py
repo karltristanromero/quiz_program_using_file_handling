@@ -1,9 +1,9 @@
 import time
-import prompt_functions as prompting
-from miscellaneous_functions import UICleaner
-from path_handling import PathHandler
-from file_handling import FileHandler
-from read_file_function import ShowFileContents
+import game_functions.prompt_functions as prompting
+from utils.miscellaneous_functions import UICleaner
+from utils.path_handling import PathHandler
+from utils.file_handling import FileHandler
+from game_functions.read_file_function import ShowFileContents
 
 class QuizModifier(PathHandler):
 

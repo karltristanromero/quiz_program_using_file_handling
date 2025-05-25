@@ -1,13 +1,13 @@
 import random
 
-from path_handling import PathHandler
-from miscellaneous_functions import UICleaner
-from file_handling import FileHandler
-from prompt_functions import FileRetriever, PromptValidator, ContinueOrExit
-from display_qna_functions import DisplayQnA
-from display_correct_answers_function import DisplayAnswers
-from check_function import AnswerValidator
-from score_count_function import ScoreKeeper
+from utils.path_handling import PathHandler
+from utils.miscellaneous_functions import UICleaner
+from utils.file_handling import FileHandler
+from game_functions.prompt_functions import FileRetriever, PromptValidator, ContinueOrExit
+from game_functions.display_qna_functions import DisplayQnA
+from game_functions.display_correct_answers_function import DisplayAnswers
+from game_functions.check_function import AnswerValidator
+from game_functions.score_count_function import ScoreKeeper
 
 class QuizInitiator(PathHandler):
     

@@ -1,4 +1,3 @@
-
 class PromptValidator:
     '''This is a class for prompt_validation()'''
 

@@ -1,4 +1,4 @@
-from miscellaneous_functions import UICleaner
+from utils.miscellaneous_functions import UICleaner
 from prompt_functions import PromptValidator
 from display_qna_functions import DisplayQnA
 

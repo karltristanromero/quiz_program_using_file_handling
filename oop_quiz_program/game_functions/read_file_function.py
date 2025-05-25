@@ -1,5 +1,5 @@
-from miscellaneous_functions import UICleaner
-from file_handling import FileHandler
+from utils.miscellaneous_functions import UICleaner
+from utils.file_handling import FileHandler
 from prompt_functions import ContinueOrExit
 
 class ShowFileContents:

@@ -1,4 +1,4 @@
-from miscellaneous_functions import UICleaner
+from utils.miscellaneous_functions import UICleaner
 
 class DisplayQnA:
 

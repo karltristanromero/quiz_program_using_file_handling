@@ -1,13 +1,6 @@
 import prompt_functions as prompting
-import random
 from path_handling import PathHandler
 from miscellaneous_functions import UICleaner
-from file_handling import FileHandler
-from score_count_function import ScoreKeeper
-from display_qna_functions import DisplayQnA
-from check_function import AnswerValidator
-from display_qna_functions import DisplayQnA
-from display_correct_answers_function import DisplayAnswers
 
 class QuizCreator(PathHandler):
 

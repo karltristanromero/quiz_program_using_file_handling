@@ -1,6 +1,6 @@
-import prompt_functions as prompting
-from path_handling import PathHandler
-from miscellaneous_functions import UICleaner
+import game_functions.prompt_functions as prompting
+from utils.path_handling import PathHandler
+from utils.miscellaneous_functions import UICleaner
 
 class QuizCreator(PathHandler):
 

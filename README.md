@@ -1,9 +1,4 @@
-### Process of downloading the dependencies for this program
+This is the `Assignment 11` where I converted my procedural code into OOP code.
 
-1. Make sure the your pip is installed/updated, if not, do this:
-    
-    `py -m pip install --upgrade pip`
-
-2. Download the dependencies:
-
-    `pip install -r requirements.txt`
+**Name: Karl Tristan Romero**
+**Year/Section: BSCpE 1-6**
